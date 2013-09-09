@@ -16,8 +16,24 @@
     </p>
     <hr />
     <div>
+      <form method='post' action="<%= @request.path %>">
+        First name: <input type="text" name="first_name" placeholder='first name'/><br />
+        Some info about you: <textarea id="info" name="info" cols="30" rows="10"></textarea>
+        <input type="submit" value="Submit" />
+      </form>
       <%= yield %>
     </div>
+    <hr />
+    <% if @request.query['first_name'] && !@request.query['first_name'].empty? %>
+      Hello there <%= @request.query['first_name'] %> <br>
+      <% if @request.query['info'] && !@request.query['info'].empty? %>
+        Info: <%= @request.query['info'] %>
+      <% else %>
+        Enter the info in the form.
+      <% end %>
+    <% else %>
+      Enter the name in the form.
+    <% end %>
     <hr />
     <div>
       <h3> I'm a footer</h3>
